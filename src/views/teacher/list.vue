@@ -44,6 +44,14 @@
         label="姓名"
         width="100"/>
       <el-table-column
+        prop="avatar"
+        label="头像">
+        <template slot-scope="scope">
+          <img v-if="scope.row.avatar" :src="scope.row.avatar" style="width:50px ; height:50px" alt="">
+          <img v-else src="https://sh0621-gulionline-file.oss-cn-shanghai.aliyuncs.com/imgs/default.jpg" style="width:50px ; height:50px" alt="">
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="intro"
         label="简介"
       />
@@ -151,7 +159,7 @@ export default {
       this.page = page
       this.getTeacherPage()
     },
-    // 查询分页
+    // 条件查询分页显示
     getTeacherPage() {
       teacherApi.pageList(this.page, this.limit, this.seachObj)
         .then(response => {

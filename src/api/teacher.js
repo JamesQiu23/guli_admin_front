@@ -35,6 +35,7 @@ export default {
     })
   },
 
+  // 根据id获取到teacher对象
   getById(id) {
     return request({
       url: `/admin/edu/teacher/getById/${id}`,
@@ -42,11 +43,12 @@ export default {
     })
   },
 
-  // 5、根据id查询讲师
-  teacherQueryById(id) {
+  updateById(teacher) {
     return request({
-      url: `/admin/edu/teacher/get/${id}`,
-      method: 'get'
+      url: '/admin/edu/teacher/update',
+      method: 'put', // 虽然是提交表单，但是务必注意提交后端是PutMapping
+      data: teacher // 将数据放到data中就是请求体提交，也即json方式，后端就应该使用@RequestBody接收
     })
   }
+
 }

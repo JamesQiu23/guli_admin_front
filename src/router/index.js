@@ -51,7 +51,7 @@ export const constantRouterMap = [
         meta: { title: '添加讲师' }
       },
       {
-        path: 'edit/:id',
+        path: 'edit/:id', // 修改讲师会携带此讲师id进行路由跳转
         name: 'TeacherEdit',
         component: () => import('@/views/teacher/form'),
         // 这个页面和添加讲师的页面在同一个vue页面上，因为vue是动态加载生成某部分页面；
