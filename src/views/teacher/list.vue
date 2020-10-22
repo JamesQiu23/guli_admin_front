@@ -15,13 +15,13 @@
       <el-form-item label="添加时间">
         <el-col :span="11">
           <el-form-item >
-            <el-date-picker v-model="seachObj.joinDateBegin" type="date" placeholder="选择开始日期" style="width: 100%;"/>
+            <el-date-picker v-model="seachObj.startDate" type="date" placeholder="选择开始日期" style="width: 100%;"/>
           </el-form-item>
         </el-col>
         <el-col :span="2" class="line">-</el-col>
         <el-col :span="11">
           <el-form-item>
-            <el-date-picker v-model="seachObj.joinDateEnd" type="date" placeholder="选择截止日期" style="width: 100%;"/>
+            <el-date-picker v-model="seachObj.endDate" type="date" placeholder="选择截止日期" style="width: 100%;"/>
           </el-form-item>
         </el-col>
       </el-form-item>
@@ -48,7 +48,7 @@
         label="头像">
         <template slot-scope="scope">
           <img v-if="scope.row.avatar" :src="scope.row.avatar" style="width:50px ; height:50px" alt="">
-          <img v-else src="https://sh0621-gulionline-file.oss-cn-shanghai.aliyuncs.com/imgs/default.jpg" style="width:50px ; height:50px" alt="">
+          <img v-else src="https://my-oos-bucket01.oss-cn-shanghai.aliyuncs.com/myphoto/a7.jpg" style="width:50px ; height:50px" alt="">
         </template>
       </el-table-column>
       <el-table-column
@@ -76,6 +76,7 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
+            type="success"
             @click="handleEdit(scope.row.id)">编辑</el-button>
           <el-button
             size="mini"
@@ -104,7 +105,7 @@ export default {
       items: [], // 用来接受讲师列表数据
       // 分页查询的条件的默认属性值
       page: 1,
-      limit: 3,
+      limit: 5,
       seachObj: {},
       total: 0
     }
