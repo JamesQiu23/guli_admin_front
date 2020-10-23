@@ -60,7 +60,30 @@ export const constantRouterMap = [
       }
     ]
   },
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
+
+  // 课程分类管理的路由设置
+  {
+    path: '/subject',
+    name: 'Subject',
+    component: Layout,
+    redirect: '/subject/list',
+    meta: { title: '课程分类管理' },
+    children: [
+      {
+        path: 'list',
+        name: 'SubjectList',
+        component: () => import('@/views/subject/list'), // component设置此路由的页面(一般是导入vue页面)
+        meta: { title: '课程分类列表' }
+      },
+      {
+        path: 'import',
+        name: 'SubjectImport',
+        component: () => import('@/views/subject/import'),
+        meta: { title: '导入课程分类' }
+      }
+    ]
+  }
 ]
 
 export default new Router({
