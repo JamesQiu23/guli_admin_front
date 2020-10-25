@@ -1,13 +1,11 @@
 import request from '@/utils/request'
 
 export default{
-
   // 加载课程列表的方法
-  getAllSubjects() {
+  getSubjectList() {
     return request({
-      url: '/admin/edu/subject/getAllSubjects',
+      url: '/admin/edu/subject/getSubjectList',
       method: 'get'
     })
   }
-
 }
