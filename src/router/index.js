@@ -68,19 +68,54 @@ export const constantRouterMap = [
     name: 'Subject',
     component: Layout,
     redirect: '/subject/list',
-    meta: { title: '课程分类管理' },
+    meta: { title: '课程类别管理' },
     children: [
       {
         path: 'list',
         name: 'SubjectList',
         component: () => import('@/views/subject/list'), // component设置此路由的页面(一般是导入vue页面)
-        meta: { title: '课程分类列表' }
+        meta: { title: '课程类别列表' }
       },
       {
         path: 'import',
         name: 'SubjectImport',
         component: () => import('@/views/subject/import'),
-        meta: { title: '导入课程分类' }
+        meta: { title: '导入课程类别列表' }
+      }
+    ]
+  },
+  {
+    path: '/course',
+    redirect: '/course/list',
+    name: 'Course',
+    component: Layout,
+    meta: { title: '课程管理' },
+    children: [
+      {
+        path: 'list',
+        name: 'CourseList',
+        component: () => import('@/views/course/list'),
+        meta: { title: '课程列表', icon: '' }
+      },
+      {
+        path: 'form',
+        name: 'CourseForm',
+        component: () => import('@/views/course/form'),
+        meta: { title: '课程发布' }
+      },
+      {
+        path: 'info/:id',
+        name: 'CourseInfoEdit',
+        component: () => import('@/views/course/form'),
+        meta: { title: '编辑课程' },
+        hidden: true
+      },
+      {
+        path: 'chapter/:id',
+        name: 'CourseChapterEdit',
+        component: () => import('@/views/course/form'),
+        meta: { title: '编辑大纲' },
+        hidden: true
       }
     ]
   }
