@@ -26,6 +26,21 @@ export default{
       params: { id },
       data: courseInfo
     })
-  }
+  },
 
+  // 获取待发布课程的信息
+  getPublishInfo(courseId) {
+    return request({
+      url: `/admin/edu/course/getPublishInfo/${courseId}`,
+      method: 'get'
+    })
+  },
+
+  // 课程发布，将课程的状态改为normal(默认是draft草稿)
+  publishCourse(courseId) {
+    return request({
+      url: `/admin/edu/course/publish-course/${courseId}`,
+      method: 'put'
+    })
+  }
 }

@@ -13,7 +13,7 @@
         <p>
           {{ chapter.title }}
           <span class="acts">
-            <el-button type="text">添加课时</el-button>
+            <el-button type="text" @click="saveVideo(chapter.id)">添加课时</el-button>
             <el-button type="text" @click="updateChapter(chapter.id)" >编辑</el-button>
             <el-button type="text" @click="deleteChapter(chapter.id)">删除</el-button>
           </span>
@@ -26,12 +26,12 @@
             <p>
               {{ video.title }}
               <el-tag v-if="!video.videoSourceId" size="mini" type="danger">
-                {{ '尚未上传视频' }}
+                {{ '视频源丢失~无法播放' }}
               </el-tag>
               <span class="acts">
-                <el-tag v-if="video.free" size="mini" type="success">{{ '免费观看' }}</el-tag>
-                <el-button type="text">编辑</el-button>
-                <el-button type="text" >删除</el-button>
+                <el-tag v-if="video.free" size="mini" type="success">{{ '这集可免费白嫖' }}</el-tag>
+                <el-button type="text" @click="updateVideo(video.id)">编辑</el-button>
+                <el-button type="text" @click="deleteVideo(video.id)">删除</el-button>
               </span>
             </p>
           </li>
@@ -45,9 +45,9 @@
     <!-- <chapter-form ref="chapterForm" /> -->
     <chapter-form ref="chapterForm" />
     <!-- 课时表单对话框 TODO -->
+    <video-form ref="videoForm" />
 
     <div style="text-align:center">
-
       <el-button type="primary" @click="previous">上一步</el-button>
       <el-button type="primary" @click="next">下一步</el-button>
     </div>
@@ -58,10 +58,13 @@
 // 引入组件
 import ChapterForm from '@/views/course/components/Chapter/Form'
 import chapterApi from '@/api/chapter'
+import VideoForm from '@/views/course/components/Video/Form'
+import videoApi from '@/api/video'
+
 export default {
   components: {
     // 注册vue子组件
-    ChapterForm
+    ChapterForm, VideoForm
   },
   data() {
     return {
@@ -123,7 +126,49 @@ export default {
             this.$message.info('取消删除')
           }
         })
+    },
+
+    // ---------------------------课时处理-------------------------------------
+    // ---------------------------课时处理-------------------------------------
+    saveVideo(chapterId) {
+      this.$refs.videoForm.title = '添加课时'
+      // 弹出video的模态框，video对象需要chapterId和courseId
+      this.$refs.videoForm.open(chapterId, this.$parent.courseId)
+    },
+
+    updateVideo(videoId) {
+      this.$refs.videoForm.title = '修改课时'
+      // 弹出video的模态框，video对象需要chapterId和courseId和videoId
+      this.$refs.videoForm.open(null, null, videoId)
+    },
+    // 为什么新增课时需要传入courseId和chapterId,而修改课时不需要这两项，只需要videoId？
+    // 因为：新增时要说明这个课时视频属于哪个课程哪个章节，而课时Id还没有生成；
+    // 修改时，根据videoId就能查询到video课时对象，这个对象中就已有courseId和chapterId
+
+    // 删除课时
+    deleteVideo(videoId) {
+      this.$confirm('是否删除此课时视频?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        videoApi.deleteVideo(videoId)
+          .then(response => {
+            this.$message.success(response.message)
+            this.getChapterNestedList()
+          })
+      }).catch(response => {
+        if (response === 'cancel') {
+          this.$message.info('取消删除')
+        }
+      })
     }
+    // 这是我之前的写法，将删除的具体操作放在video的Form.vue内完成，也没问题
+    // 删除课时视频
+    // deleteVideo(videoId) {
+    //   console.log('父组件的删除方法调用了')
+    //   this.$refs.videoForm.delete(videoId)
+    // }
 
   }
 }
