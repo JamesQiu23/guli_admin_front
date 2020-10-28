@@ -15,7 +15,27 @@
         </el-radio-group>
       </el-form-item>
 
-      <!-- 上传视频 TODO -->
+      <!-- 上传视频 -->
+      <el-form-item label="上传视频">
+        <el-upload
+          ref="upload"
+          :auto-upload="false"
+          :on-success="handleUploadSuccess"
+          :on-error="handleUploadError"
+          :on-exceed="handleUploadExceed"
+          :file-list="fileList"
+          :limit="1"
+          action="http://localhost:8025/admin/vod/media/upload">
+          <el-button slot="trigger" size="small" type="primary">选择视频</el-button>
+          <el-button
+            :disabled="uploadBtnDisabled"
+            style="margin-left: 10px;"
+            size="small"
+            type="success"
+            @click="submitUpload()">上传</el-button>
+        </el-upload>
+      </el-form-item>
+
     </el-form>
 
     <div slot="footer" class="dialog-footer">
@@ -30,6 +50,7 @@ import videoApi from '@/api/video'
 export default {
   data() {
     return {
+      uploadBtnDisabled: false, // false即不禁用提交按钮，true则禁用
       title: '添加课时', // 打开模态框默认是显示"添加课时"
       dialogVisible: false, // 默认关闭'模态框'不显示
       video: {
@@ -61,6 +82,7 @@ export default {
       }
     },
 
+    // 关闭模态框会调用清空模态框容器的方法formReset
     close() {
       this.dialogVisible = false
       this.formReset()
@@ -109,6 +131,12 @@ export default {
           this.$message.success(response.message)
           this.$parent.getChapterNestedList()
         })
+    },
+
+    // -----------------------视频上传处理-------------------------
+    submitUpload() {
+      this.uploadBtnDisabled = true
+      this.$refs.upload.submit() // 提交上传请求
     }
 
   }
