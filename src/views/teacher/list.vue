@@ -28,15 +28,11 @@
       <el-button icon="el-icon-search" type="primary" @click="getTeacherPage" >查询</el-button>
       <el-button @click="clearData">清空</el-button>
     </el-form>
-    <el-table
-      :data="items"
-      stripe
-      style="width: 100%">
-      <el-table-column
-        label="#"
-        width="50">
+    <el-table :data="items" stripe style="width: 100%">
+      <el-table-column label="#" width="50">
         <template slot-scope="scope">
           {{ (page - 1) * limit + scope.$index + 1 }}
+          <!-- 用于显示当前row是总记录数的第几项 -->
         </template>
       </el-table-column>
       <el-table-column

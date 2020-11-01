@@ -32,7 +32,7 @@
       :current-page="page"
       :total="total"
       :page-size="limit"
-      :page-sizes="[5, 10, 20, 30, 40, 50, 100]"
+      :page-sizes="[3, 5, 10]"
       style="padding: 30px 0; text-align: center;"
       layout="total, sizes, prev, pager, next, jumper"
       @size-change="changePageSize"
@@ -45,13 +45,12 @@
 import adTypeApi from '@/api/adType'
 
 export default {
-  // 定义数据模型
-  data() {
+  data() { // 定义数据模型
     return {
       list: [], // 列表
       total: 0, // 总记录数
       page: 1, // 页码
-      limit: 6 // 每页记录数
+      limit: 3 // 每页记录数
     }
   },
 
@@ -65,7 +64,7 @@ export default {
     fetchData() {
       // 调用api
       adTypeApi.pageList(this.page, this.limit).then(response => {
-        this.list = response.data.rows
+        this.list = response.data.pageList
         this.total = response.data.total
       })
     },

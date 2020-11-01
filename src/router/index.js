@@ -123,8 +123,8 @@ export const constantRouterMap = [
   // 广告推荐与推荐位路由配置
   {
     path: '/ad',
-    component: Layout,
-    redirect: '/ad/list',
+    component: Layout, // 这个是页面布局的，比如面包屑、左侧导航栏等
+    redirect: '/ad/list', //
     name: 'Ad',
     meta: { title: '内容管理' },
     children: [

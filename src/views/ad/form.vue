@@ -28,7 +28,7 @@
           :before-upload="beforeAvatarUpload"
           :limit="1"
           :file-list="fileList"
-          action="http://localhost:8120/admin/oss/file/upload?module=ad"
+          action="http://localhost:8024/admin/oss/file/upload?module=ad"
           list-type="picture">
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
@@ -140,7 +140,7 @@ export default {
       console.log(res)
       if (res.success) {
         // console.log(res)
-        this.ad.imageUrl = res.data.url
+        this.ad.imageUrl = res.data.imageURL
         // 强制重新渲染
         // this.$forceUpdate()
       } else {
