@@ -28,7 +28,7 @@
           :before-upload="beforeAvatarUpload"
           :limit="1"
           :file-list="fileList"
-          action="http://localhost:8024/admin/oss/file/upload?module=ad"
+          :action="BASE_API+'/admin/oss/file/upload?module=ad'"
           list-type="picture">
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
@@ -53,6 +53,7 @@ import adTypeApi from '@/api/adType'
 export default {
   data() {
     return {
+      BASE_API: process.env.BASE_API,
       ad: {
         sort: 0
       },

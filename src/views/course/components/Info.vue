@@ -55,8 +55,8 @@
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
-          class="avatar-uploader"
-          action="http://localhost:8024/admin/oss/file/upload?module=cover">
+          :action="BASE_API+'/admin/oss/file/upload?module=cover'"
+          class="avatar-uploader">
           <!-- 如果存在就显示 -->
           <img v-if="courseInfo.cover" :src="courseInfo.cover" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"/>
@@ -118,6 +118,7 @@ export default {
 
   data() {
     return {
+      BASE_API: process.env.BASE_API,
       subjectChildren: [],
       subjectNestedList: [],
       teacherList: [],

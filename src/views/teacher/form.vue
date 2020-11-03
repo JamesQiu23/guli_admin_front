@@ -35,8 +35,8 @@
           :show-file-list="false"
           :on-error="handleAvatarError"
           :on-success="handleAvatarSuccess"
-          class="avatar-uploader"
-          action="http://localhost:8024/admin/oss/file/upload?module=avatar">
+          :action="BASE_API+'/admin/oss/file/upload?module=avatar'"
+          class="avatar-uploader">
           <img v-if="teacher.avatar" :src="teacher.avatar" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"/>
         </el-upload>
@@ -81,6 +81,7 @@ import teacherApi from '@/api/teacher'
 export default {
   data() {
     return {
+      BASE_API: process.env.BASE_API,
       // 初始化讲师默认数据
       teacher: {
         id: null,

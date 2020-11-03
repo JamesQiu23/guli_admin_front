@@ -25,7 +25,7 @@
           :on-exceed="handleUploadExceed"
           :file-list="fileList"
           :limit="1"
-          action="http://127.0.0.1:8025/admin/vod/media/upload">
+          :action="BASE_API+'/admin/vod/media/upload'">
           <el-button slot="trigger" size="small" type="primary">选择视频</el-button>
           <el-button
             :disabled="uploadBtnDisabled"
@@ -50,6 +50,7 @@ import videoApi from '@/api/video'
 export default {
   data() {
     return {
+      BASE_API: process.env.BASE_API,
       uploadBtnDisabled: false, // false即不禁用提交按钮，true则禁用
       fileList: [], // 上传文件列表
       title: '添加课时', // 打开模态框默认是显示"添加课时"
