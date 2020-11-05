@@ -137,6 +137,13 @@ export default {
   },
 
   created() {
+    console.log(this.$route.params.id)
+    if (this.$route.id) {
+      this.getCourseInfo(this.$route.params.id)
+        .then(response => {
+          this.courseInfo = response.data.items
+        })
+    }
     this.getTeacherList()
     this.getSubjectNestedList()
     if (this.$parent.courseId) {

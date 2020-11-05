@@ -42,5 +42,13 @@ export default{
       url: `/admin/edu/course/publish-course/${courseId}`,
       method: 'put'
     })
+  },
+
+  getPageList(page, limit, searchObj) {
+    return request({
+      url: `admin/edu/course/list/${page}/${limit}`,
+      method: 'get',
+      params: searchObj
+    })
   }
 }

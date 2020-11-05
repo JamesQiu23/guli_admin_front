@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    <!--查询表单 TODO-->
     <!--查询表单-->
     <el-form :inline="true" class="demo-form-inline">
 
@@ -49,7 +48,6 @@
       <el-button type="default" @click="resetData()">清空</el-button>
     </el-form>
 
-    <!-- 表格 TODO -->
     <!-- 表格 -->
     <el-table :data="list" border stripe>
 
@@ -122,7 +120,6 @@
       </el-table-column>
     </el-table>
 
-    <!-- 分页 TODO -->
     <!-- 分页组件 -->
     <el-pagination
       :current-page="page"
@@ -143,16 +140,15 @@ import teacherApi from '@/api/teacher'
 import subjectApi from '@/api/subject'
 
 export default {
-
   data() {
     return {
       list: [], // 课程列表
       total: 0, // 总记录数
       page: 1, // 页码
-      limit: 10, // 每页记录数
-      searchObj: {
+      limit: 5, // 每页记录数
+      searchObj: { // 查询条件
         subjectId: ''// 解决查询表单无法选中二级类别
-      }, // 查询条件
+      },
       teacherList: [], // 讲师列表
       subjectList: [], // 一级分类列表
       subjectLevelTwoList: [] // 二级分类列表,
@@ -161,10 +157,8 @@ export default {
 
   created() {
     this.fetchData()
-    // 初始化分类列表
-    this.initSubjectList()
-    // 获取讲师列表
-    this.initTeacherList()
+    this.initSubjectList() // 初始化课程列表
+    this.initTeacherList() // 获取讲师列表
   },
 
   methods: {
@@ -182,7 +176,7 @@ export default {
     },
 
     initSubjectList() {
-      subjectApi.getNestedTreeList().then(response => {
+      subjectApi.getSubjectList().then(response => {
         this.subjectList = response.data.items
       })
     },
